@@ -88,4 +88,47 @@ class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
         $result = ArrayUtils::hasValue($initialArray,array(1, 1));
         $this->assertEquals(true, $result);
     }
+    
+    
+    public function testRecursivelyRemoveDuplicates()
+    {
+        $initialArray = array(  '3'  => '2',
+                                '1'  => '2',
+                                '2'  => 'ad',
+                                '3a' => '5',
+                                '3a' => '9',
+                                'z',
+                                'z',
+                                'z',
+                                'arr1' => array(1, 2),
+                                'arr2' => array(2, 1),
+                                'arr4' => array(1, 1),
+                                'arr3' => array(1, 1),
+                                'arr5' => array(1=>1, '0'=>1),
+            );
+        $noDuplicatesArray = array( '3'  => '2',
+                                    '2'  => 'ad',
+                                    '3a' => '9',
+                                    'z',
+                                    'arr1' => array(1, 2),
+                                    'arr2' => array(2, 1),
+                                    'arr4' => array(1, 1),
+                                    'arr5' => array(1=>1, '0'=>1),
+            );
+        $resultArray = ArrayUtils::recursivelyRemoveDuplicates($initialArray);
+        $this->assertEquals($noDuplicatesArray, $resultArray, 'First test');
+        
+        $initialArray = array(  
+            '0a'  => '1',
+            '1b'  => '2',
+            '1c'  => '2',
+            );
+        $noDuplicatesArray = array(  
+            '0a'  => '1',
+            '1b'  => '2',
+            );
+        
+        $resultArray = ArrayUtils::recursivelyRemoveDuplicates($initialArray);
+        $this->assertEquals($noDuplicatesArray, $resultArray, 'Second test');
+    }
 }

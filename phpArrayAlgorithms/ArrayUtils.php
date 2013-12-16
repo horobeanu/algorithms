@@ -67,12 +67,28 @@ class ArrayUtils
      * Two values are considered duplicate if they have the same type and value. 
      *
      * @param array $array
+     * @param array $newArray
      * @return array
-     * @throws \InvalidArgumentException
      */
-    public static function recursivelyRemoveDuplicates($array)
+    public static function recursivelyRemoveDuplicates(array $array, $newArray=array())
     {
-        // @TODO
-        return $array;
+        if (count($array) == 1) {
+            if (!self::hasValue($newArray, current($array))) {
+                return $array;
+            } else {
+                return array();
+            }
+        }
+        
+        reset($array);
+        $value = current($array);
+        $key = key($array);
+        unset($array[$key]);
+
+        if (!self::hasValue($newArray, $value)) {
+            $newArray[$key] = $value;
+        }
+        
+        return self::recursivelyRemoveDuplicates($array, $newArray)+$newArray;
    }
 }
