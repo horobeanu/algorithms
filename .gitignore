@@ -2,3 +2,6 @@ vendor/*
 nbproject/*
 composer.lock
 composer.phar
+/javaArrayAlgorithms/JavaArrayAlgorithms/nbproject/*
+/javaArrayAlgorithms/JavaArrayAlgorithms/build/
+/javaArrayAlgorithms/JavaArrayAlgorithms/dist/
